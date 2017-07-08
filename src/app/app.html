@@ -1,0 +1,49 @@
+<ion-split-pane>
+	<ion-menu [content]="content">
+		<ion-header>
+			<ion-toolbar>
+				<ion-title>News Sources</ion-title>
+			</ion-toolbar>
+		</ion-header>
+
+		<ion-content>
+
+			<!--
+			<ion-list style="margin-bottom: 1px;">
+				<ion-item>
+					<ion-input
+						(keyup)="updateFilter($event.target.value)"
+						type="text"
+						value=""
+						placeholder="Filter sources…">
+					</ion-input>
+				</ion-item>
+			</ion-list>
+			-->
+
+			<ion-list>
+				<button
+					menuClose
+					ion-item
+					*ngFor="let source of (sources$ | async)?.sources"
+					[ngClass]="{'menu--selected': source.id === newsName}"
+					(click)="selectSource(source)">
+
+        			{{ source.name }}
+      			</button>
+			</ion-list>
+
+		</ion-content>
+
+	</ion-menu>
+
+	<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+	<ion-nav
+		main
+		[root]="rootComponent"
+		[rootParams]="rootParams"
+		#content
+		swipeBackEnabled="false">
+	</ion-nav>
+
+</ion-split-pane>
